@@ -128,10 +128,10 @@ func (n *Network) FormattedText() string {
 		"Wildcard:\t%-20s\t%s\n"+
 		"----------------------------------------------------------------------------\n"+
 		"Network:\t%-20s\t%s\n"+
-		"HostMin:\t%-20s\t%s\n"+
-		"HostMax:\t%-20s\t%s\n"+
+		"First host:\t%-20s\t%s\n"+
+		"Last host:\t%-20s\t%s\n"+
 		"Broadcast:\t%-20s\t%s\n"+
-		"Hosts:\t\t%-20d\tClass %s, %s",
+		"Host count:\t%-20d\tClass %s, %s",
 		n.Address.String(), addressBinary,
 		net.IP(n.Netmask).String(), n.PrefixLength, netmaskBinary,
 		n.Wildcard.String(), wildcardBinary,
@@ -234,6 +234,7 @@ func FormatBinaryWithMask(ip net.IP, prefixLength int) string {
 
 	// Build result with dots and space at network/host boundary
 	result := ""
+
 	for i := 0; i < 32; i++ {
 		// Add space at network/host boundary
 		if i == prefixLength {

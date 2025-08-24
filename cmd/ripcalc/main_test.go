@@ -8,10 +8,11 @@ import (
 
 func TestRunWithValidCIDR(t *testing.T) {
 	oldArgs := os.Args
+
 	defer func() {
 		os.Args = oldArgs
 	}()
-	
+
 	// Set up args for testing
 	os.Args = []string{"ripcalc", "192.168.0.0/24"}
 
@@ -23,6 +24,7 @@ func TestRunWithValidCIDR(t *testing.T) {
 
 func TestRunWithInvalidCIDR(t *testing.T) {
 	oldArgs := os.Args
+
 	defer func() {
 		os.Args = oldArgs
 	}()
@@ -42,10 +44,11 @@ func TestRunWithInvalidCIDR(t *testing.T) {
 
 func TestRunWithNoArguments(t *testing.T) {
 	oldArgs := os.Args
+
 	defer func() {
 		os.Args = oldArgs
 	}()
-	
+
 	// Set up args with no CIDR argument
 	os.Args = []string{"ripcalc"}
 
@@ -62,14 +65,15 @@ func TestRunWithNoArguments(t *testing.T) {
 
 func TestRunWithHelpFlags(t *testing.T) {
 	helpFlags := []string{"-h", "--help", "help"}
-	
+
 	for _, flag := range helpFlags {
 		t.Run("help_flag_"+flag, func(t *testing.T) {
 			oldArgs := os.Args
+
 			defer func() {
 				os.Args = oldArgs
 			}()
-			
+
 			os.Args = []string{"ripcalc", flag}
 
 			err := run()
@@ -90,7 +94,7 @@ func TestRunWithDifferentNetworks(t *testing.T) {
 			cidr: "10.0.0.1/8",
 		},
 		{
-			name: "Class B Private", 
+			name: "Class B Private",
 			cidr: "172.16.0.1/16",
 		},
 		{
@@ -106,10 +110,11 @@ func TestRunWithDifferentNetworks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			oldArgs := os.Args
+
 			defer func() {
 				os.Args = oldArgs
 			}()
-			
+
 			os.Args = []string{"ripcalc", tt.cidr}
 
 			err := run()

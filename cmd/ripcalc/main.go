@@ -39,6 +39,7 @@ func run() error {
 	}
 
 	fmt.Println(network.FormattedText())
+
 	return nil
 }
 
