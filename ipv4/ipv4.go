@@ -123,15 +123,17 @@ func (n *Network) FormattedText() string {
 
 	typeStr := n.Type
 
-	return fmt.Sprintf("Address:\t%-20s\t%s\n"+
-		"Netmask:\t%-15s = %-2d\t%s\n"+
-		"Wildcard:\t%-20s\t%s\n"+
-		"----------------------------------------------------------------------------\n"+
-		"Network:\t%-20s\t%s\n"+
-		"First host:\t%-20s\t%s\n"+
-		"Last host:\t%-20s\t%s\n"+
-		"Broadcast:\t%-20s\t%s\n"+
-		"Host count:\t%-20d\tClass %s, %s",
+	return fmt.Sprintf(
+		""+
+			"   Address:\t%-20s\t%s\n"+
+			"   Netmask:\t%-15s = %-2d\t%s\n"+
+			"  Wildcard:\t%-20s\t%s\n"+
+			"----------------------------------------------------------------------------\n"+
+			"   Network:\t%-20s\t%s\n"+
+			"First host:\t%-20s\t%s\n"+
+			" Last host:\t%-20s\t%s\n"+
+			" Broadcast:\t%-20s\t%s\n"+
+			"Host count:\t%-20d\tClass %s, %s",
 		n.Address.String(), addressBinary,
 		net.IP(n.Netmask).String(), n.PrefixLength, netmaskBinary,
 		n.Wildcard.String(), wildcardBinary,
