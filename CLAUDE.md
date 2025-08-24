@@ -59,6 +59,7 @@ make generate   # Run go generate
   - Always use `*_test` package to write tests to ensure we're testing
     only via the public interface
   - Prefer table-driven tests
+  - Maintain at least 90% test coverage
 - Prompt to review and create a new commit before continuing with the next change
 - Only use `log/slog` for logging, never `fmt.Println` or `log`
   - Only do logging in the CLI tool, never in the ripcalc package/library
@@ -66,3 +67,5 @@ make generate   # Run go generate
   with `log/slog` when returning the error is not possible (e.g. in a `defer`).
 - Always wrap errors with `fmt.Errorf`, use the name of the function returning the error as the
   message prefix, e.g. `fmt.Errorf("pkg.FuncName: %w", err)`
+
+- Use Australian English spelling, never US English.

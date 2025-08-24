@@ -9,6 +9,7 @@ ripcalc is a CLI tool and a Go package for calculating IPv4 and IPv6 address blo
 - Binary representation of addresses
 - Structured output: JSON
 - Optional coloured output
+- No dependencies beyond the Go standard library
 
 ## Usage
 
@@ -47,7 +48,7 @@ ripcalc -json 192.168.0.1/24
     "usable_hosts": {
       "min": "192.168.0.1",
       "max": "192.168.0.254"
-      "count": 254,
+      "count": 254
     },
     "class": "C",
     "type": "PRIVATE"

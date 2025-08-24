@@ -113,29 +113,29 @@ func (n *Network) Calculate() error {
 }
 
 func (n *Network) FormattedText() string {
-	addressBinary := FormatBinary(n.Address)
-	netmaskBinary := FormatBinary(net.IP(n.Netmask))
-	wildcardBinary := FormatBinary(n.Wildcard)
-	networkBinary := FormatBinary(n.Network)
-	hostMinBinary := FormatBinary(n.HostMin)
-	hostMaxBinary := FormatBinary(n.HostMax)
-	broadcastBinary := FormatBinary(n.Broadcast)
+	addressBinary := FormatBinaryWithMask(n.Address, n.PrefixLength)
+	netmaskBinary := FormatBinaryWithMask(net.IP(n.Netmask), n.PrefixLength)
+	wildcardBinary := FormatBinaryWithMask(n.Wildcard, n.PrefixLength)
+	networkBinary := FormatBinaryWithMask(n.Network, n.PrefixLength)
+	hostMinBinary := FormatBinaryWithMask(n.HostMin, n.PrefixLength)
+	hostMaxBinary := FormatBinaryWithMask(n.HostMax, n.PrefixLength)
+	broadcastBinary := FormatBinaryWithMask(n.Broadcast, n.PrefixLength)
 
 	typeStr := n.Type
 
-	return fmt.Sprintf("Address:   %-15s  %s\n"+
-		"Netmask:   %-15s = %-2d   %s\n"+
-		"Wildcard:  %-15s  %s\n"+
-		"--------------------------------------------------------------------\n"+
-		"Network:   %s/%-2d       %s\n"+
-		" HostMin:  %-15s  %s\n"+
-		" HostMax:  %-15s  %s\n"+
-		"Broadcast: %-15s  %s\n"+
-		"Hosts:     %-15d  Class %s, %s",
+	return fmt.Sprintf("Address:\t%-20s\t%s\n"+
+		"Netmask:\t%-15s = %-2d\t%s\n"+
+		"Wildcard:\t%-20s\t%s\n"+
+		"----------------------------------------------------------------------------\n"+
+		"Network:\t%-20s\t%s\n"+
+		"HostMin:\t%-20s\t%s\n"+
+		"HostMax:\t%-20s\t%s\n"+
+		"Broadcast:\t%-20s\t%s\n"+
+		"Hosts:\t\t%-20d\tClass %s, %s",
 		n.Address.String(), addressBinary,
 		net.IP(n.Netmask).String(), n.PrefixLength, netmaskBinary,
 		n.Wildcard.String(), wildcardBinary,
-		n.Network.String(), n.PrefixLength, networkBinary,
+		fmt.Sprintf("%s/%d", n.Network.String(), n.PrefixLength), networkBinary,
 		n.HostMin.String(), hostMinBinary,
 		n.HostMax.String(), hostMaxBinary,
 		n.Broadcast.String(), broadcastBinary,
@@ -218,4 +218,36 @@ func FormatBinary(ip net.IP) string {
 	}
 
 	return fmt.Sprintf("%08b.%08b.%08b.%08b", ip[0], ip[1], ip[2], ip[3])
+}
+
+func FormatBinaryWithMask(ip net.IP, prefixLength int) string {
+	if len(ip) != 4 {
+		return ""
+	}
+
+	binary := fmt.Sprintf("%08b%08b%08b%08b", ip[0], ip[1], ip[2], ip[3])
+
+	if prefixLength >= 32 || prefixLength <= 0 {
+		// Add dots every 8 bits for readability
+		return fmt.Sprintf("%s.%s.%s.%s", binary[0:8], binary[8:16], binary[16:24], binary[24:32])
+	}
+
+	// Build result with dots and space at network/host boundary
+	result := ""
+	for i := 0; i < 32; i++ {
+		// Add space at network/host boundary
+		if i == prefixLength {
+			result += " "
+		}
+
+		// Add the bit
+		result += string(binary[i])
+
+		// Add dot after every 8th bit, but not at the end
+		if (i+1)%8 == 0 && i < 31 {
+			result += "."
+		}
+	}
+
+	return result
 }
