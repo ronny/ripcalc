@@ -2,3 +2,5 @@
 coverage.txt
 /bin
 .env
+*.local.json
+*.local.md
