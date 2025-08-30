@@ -4,34 +4,27 @@ This document tracks features and tasks for implementing ripcalc - a CLI tool an
 
 ## Priority Order
 
-1. IPv6 support
-2. Performance optimizations
-3. JSON output
-4. Polish (coloured outputs, tabular text output, etc.)
+1. ~~IPv6 support~~ ✅ **COMPLETED**
+2. JSON output
+3. Polish (coloured outputs, tabular text output, etc.)
 
 ---
 
-## IPv6 Support
-- [ ] **Create ipv6 package**
-  - [ ] Implement IPv6 CIDR parsing
-  - [ ] Add IPv6 Network struct
-  - [ ] Implement IPv6 address calculations
-  - [ ] Add IPv6 address classification
-  - [ ] Create IPv6 text formatting
-  - [ ] Add comprehensive IPv6 tests
+## IPv6 Support ✅
+- [x] **Create ipv6 package** ✅
+  - [x] Implement IPv6 CIDR parsing ✅
+  - [x] Add IPv6 Network struct ✅
+  - [x] Implement IPv6 address calculations ✅
+  - [x] Add IPv6 address classification with multicast scope detection ✅
+  - [x] Create IPv6 text formatting ✅
+  - [x] Add comprehensive IPv6 tests ✅
+  - [x] Add IPv6 binary representation with network/host boundary ✅
 
-- [ ] **IPv6 CLI Integration**
-  - [ ] Auto-detect IPv4 vs IPv6 input
-  - [ ] Add IPv6 support to main CLI
+- [x] **IPv6 CLI Integration** ✅
+  - [x] Auto-detect IPv4 vs IPv6 input ✅
+  - [x] Add IPv6 support to main CLI ✅
+  - [x] Update CLI help text with IPv6 examples ✅
   - [ ] Update README with IPv6 examples
-
-## Performance Optimizations
-- [ ] **Benchmark critical path functions**
-- [ ] **Optimize binary formatting**
-- [ ] **Cache frequently used calculations**
-- [ ] **Profile memory allocation in hot paths**
-- [ ] **Consider string builder for formatted output**
-- [ ] **Optimize binary string generation**
 
 ## JSON Output
 - [ ] **Add `-json` flag for JSON output**
@@ -79,6 +72,20 @@ This document tracks features and tasks for implementing ripcalc - a CLI tool an
   - [x] Validate input argument exists
   - [x] Handle invalid CIDR input gracefully
   - [x] Add help/usage text
+  - [x] Auto-detect IPv4 vs IPv6 input format
+  - [x] Support both IPv4 and IPv6 seamlessly
+
+### IPv6 Package ✅
+- [x] **Complete IPv6 implementation**
+  - [x] IPv6 address parsing and validation
+  - [x] Network calculations (prefix, network, host range)
+  - [x] Advanced address classification system
+  - [x] Support for all IPv6 address types (Global Unicast, Link-Local, Unique Local, Multicast, etc.)
+  - [x] Multicast scope detection (Interface-Local, Link-Local, Site-Local, Organization-Local, Global)
+  - [x] Binary representation formatting with network/host boundary
+  - [x] Smart host count display (2^n notation for large subnets)
+  - [x] Comprehensive test coverage (78.8%)
+  - [x] Full CLI integration with automatic IP version detection
 
 ### Build System ✅
 - [x] Configure Makefile with build, test, lint targets
@@ -120,12 +127,6 @@ This document tracks features and tasks for implementing ripcalc - a CLI tool an
   - [ ] Submit to package managers (brew, apt, etc.)
   - [ ] Add installation instructions
 
-## JSON Schema
-- [ ] **Create JSON schema files**
-  - [ ] Create schema/ipv4-v1.json
-  - [ ] Create schema/ipv6-v1.json (when IPv6 is implemented)
-  - [ ] Validate JSON output against schema in tests
-
 ## Testing and Quality
 - [ ] **Improve test coverage**
   - [ ] Add integration tests for CLI
@@ -144,6 +145,9 @@ This document tracks features and tasks for implementing ripcalc - a CLI tool an
   - [ ] Review error handling consistency
 
 - [ ] **Performance**
+  - [ ] Benchmark critical path functions
+  - [ ] Optimize binary formatting
+  - [ ] Cache frequently used calculations
   - [ ] Profile memory allocation in hot paths
   - [ ] Consider string builder for formatted output
   - [ ] Optimize binary string generation

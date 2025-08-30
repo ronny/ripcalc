@@ -126,7 +126,8 @@ func (n *Network) FormattedText() string {
 	return fmt.Sprintf(
 		""+
 			"   Address:\t%-20s\t%s\n"+
-			"   Netmask:\t%-15s = %-2d\t%s\n"+
+			"    Prefix:\t%-20s\n"+
+			"   Netmask:\t%-20s\t%s\n"+
 			"  Wildcard:\t%-20s\t%s\n"+
 			"----------------------------------------------------------------------------\n"+
 			"   Network:\t%-20s\t%s\n"+
@@ -135,7 +136,8 @@ func (n *Network) FormattedText() string {
 			" Broadcast:\t%-20s\t%s\n"+
 			"Host count:\t%-20d\tClass %s, %s",
 		n.Address.String(), addressBinary,
-		net.IP(n.Netmask).String(), n.PrefixLength, netmaskBinary,
+		fmt.Sprintf("/%d", n.PrefixLength),
+		net.IP(n.Netmask).String(), netmaskBinary,
 		n.Wildcard.String(), wildcardBinary,
 		fmt.Sprintf("%s/%d", n.Network.String(), n.PrefixLength), networkBinary,
 		n.HostMin.String(), hostMinBinary,
